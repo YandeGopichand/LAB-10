@@ -1,13 +1,9 @@
-FROM php:8.2-apache
+FROM php:8.3-cli
 
-# Copy the PHP application into Apache's web directory
-COPY . /var/www/html/
+WORKDIR /app
 
-# Enable Apache rewrite module
-RUN a2enmod rewrite
+COPY . .
 
-# Set the working directory
-WORKDIR /var/www/html
+EXPOSE 10000
 
-# Expose Apache port
-EXPOSE 80
+CMD ["sh", "-c", "php -S 0.0.0.0:${PORT:-10000} -t /app"]
